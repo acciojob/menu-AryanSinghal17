@@ -49,23 +49,35 @@ function App() {
 
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const categories = ["All", "Breakfast", "Lunch", "Shakes"];
+  const categories = ["Breakfast", "Lunch", "Shakes"];
 
   const filteredMenu =
     activeCategory === "All"
       ? menu
-      : menu.filter((item) => item.category === activeCategory);
+      : menu.filter(
+          (item) => item.category === activeCategory
+        );
 
   return (
-    <div className="menu-container">
+    <div id="main" className="menu-container">
       <h1>Our Menu</h1>
 
       <div className="category-buttons">
-        {categories.map((category) => (
+        <button
+          onClick={() => setActiveCategory("All")}
+          data-category="All"
+        >
+          All
+        </button>
+
+        {categories.map((category, index) => (
           <button
             key={category}
-            onClick={() => setActiveCategory(category)}
-            className={activeCategory === category ? "active" : ""}
+            id={`filter-btn-${index + 1}`}
+            data-category={category}
+            onClick={(e) =>
+              setActiveCategory(e.target.dataset.category)
+            }
           >
             {category}
           </button>
